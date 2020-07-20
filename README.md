@@ -1,0 +1,2 @@
+# EmployeeDirectory
+Do you want to be able to view an entire employee directory, at once, to have quick access to their information?  Introducing, the Employee Directory application, using React!  An employee or manager would benefit greatly from being able to view non-sensitive data about other employees. It would be particularly helpful to be able to filter employees by name.  This application accomplishes these goals.

@@ -32,9 +32,11 @@ export default class DataArea extends Component {
         this.setState({ search: event.target.value, filteredEmployees: filteredEmployees });
     }
 
-    handleSort = event => {
-
-    }
+    // handleSort = event => {
+    //     const employees = this.state.employees.filter(name => {
+    //          name.id !== event});
+    //     this.setState({ employees });
+    // };
     
     // handleSort = function (a, b){ 
     

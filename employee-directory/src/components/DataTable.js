@@ -8,13 +8,13 @@ function DataTable({ employees, handleSort}) {
     return (
         <table className="table">
         <thead className="thead-dark">
-             <tr>
+            <tr>
                  <th scope="col">Image</th>
                  <th onClick={() => handleSort()} scope="col">Name</th>
                  <th scope="col">Phone</th>
                  <th scope="col">Email</th>
                  <th scope="col">DOB</th>
-             </tr>
+            </tr>
          </thead>
         <DataBody employees={employees}/>
         </table>

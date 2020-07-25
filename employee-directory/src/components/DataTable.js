@@ -3,7 +3,7 @@ import DataBody from "./DataBody.js";
 import "../styles/DataTable.css";
 
 
-// thead
+
 function DataTable({ employees, handleSort}) {
     return (
         <table className="table">

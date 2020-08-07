@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "../styles/SearchBox.css";
 
 // should this be a stateless function, instead of a stateful class?
@@ -18,27 +18,18 @@ import "../styles/SearchBox.css";
 // }
 // export default SearchBox;
 
-class SearchBox extends Component {
-
+function SearchBox({ handleSearchChange }) {
     // Do I need to setup state here again? I was thinking it would be passed via props
     // I was also thinking I needed a handleSubmit prop; however, I am only searching
     // <form onSubmit={this.handleSubmit}>
-
-
-    render() {
-        return (
-
-            <form>
-                <label>
-                    <div className="col-sm-12">
-
-                        <input type="text"  onChange={this.handleSearchChange} placeholder="Search Employees"></input>
-                    </div>
-                </label>
-
-            </form>
-
-        );
-    }
+    return (
+        <form>
+            <label>
+                <div className="col-sm-12">
+                    <input type="text" onChange={handleSearchChange} placeholder="Search Employees"></input>
+                </div>
+            </label>
+        </form>
+    );
 }
 export default SearchBox;

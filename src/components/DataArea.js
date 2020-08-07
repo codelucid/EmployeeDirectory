@@ -26,9 +26,26 @@ export default class DataArea extends Component {
     };
 
     handleSearchChange = event => {
+        const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+
+    const result = words.filter(element => element.length > 6);
+
+    const result2 = [];
+    for (let i = 0; i < words.length; i++) {
+        const element = words[i];
+        if (element.length > 6) {
+            result2.push(element);
+        }
+    }
+    
+    console.log(result);
         // From this.state.employees and event.target.value, generate filteredEmployees
         // Save it with setState into this.state.filteredEmployees
-        let filteredEmployees = event.target.filteredEmployees
+        //console.log(event.target.value); "d"
+        console.log(this.state.employees);
+        
+        let filteredEmployees = this.state.employees.filter((element) => element.name.first.startsWith(event.target.value.toUpperCase()));
+        // let filteredEmployees2 = filteredEmployees.toLowerCase();
         this.setState({ search: event.target.value, filteredEmployees: filteredEmployees });
     }
     // handleSearchChange = event => {
@@ -78,3 +95,23 @@ export default class DataArea extends Component {
     }
 }
 
+
+// const person = {
+//     firstName: "Cooper",
+//     lastName: "Healey",
+//     eat: function() {
+//         console.log(`${firstName} ${lastName} eats!`);
+//     }
+// }
+// // A method is a function tied to an object
+// person.eat();
+
+// function eat2(potato) {
+//     console.log(`${potato.firstName} ${potato.lastName} eats!`);
+// }
+
+// const person1 = {
+//     firstName: "Hannah",
+//     lastName: "Folk",
+// }
+// eat2(person1);

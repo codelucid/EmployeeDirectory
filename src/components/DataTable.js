@@ -10,7 +10,7 @@ function DataTable({ employees, handleSort}) {
         <thead className="thead-dark">
             <tr>
                  <th scope="col">Image</th>
-                 <th onClick={() => handleSort()} scope="col">Name</th>
+                 <th onClick={() => handleSort(employees.toLowerCase())} scope="col">Name</th>
                  <th scope="col">Phone</th>
                  <th scope="col">Email</th>
                  <th scope="col">DOB</th>

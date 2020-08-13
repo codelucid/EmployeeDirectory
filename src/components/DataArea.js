@@ -7,77 +7,84 @@ import "../styles/DataArea.css";
 export default class DataArea extends Component {
 
     state = {
-        search: "",
-        employees: [],
-        filteredEmployees: [],
-        error: ""
+        employees: [{}],
+        filteredEmployees: [{}],
+        order: "descend"
     };
 
-    componentDidMount() {
-        this.getEmployees();
-    }
+    headings = [
+        { name: "Image", width: "10%" },
+        { name: "Name", width: "10%" },
+        { name: "Phone", width: "20%" },
+        { name: "Email", width: "20%" },
+        { name: "DOB", width: "10%" }
+    ]
 
-    getEmployees = () => {
-        API.search()
-            .then(res => {
-                this.setState({ employees: res.data.results, filteredEmployees: res.data.results })
+    handleSort = heading => {
+        if (this.state.order === "descend") {
+            this.setState({
+                order: "ascend"
             })
-            .catch(err => console.log(err));
-    };
+        } else {
+            this.setState({
+                order: "descend"
+            })
+        }
+
+        const compareFnc = (a, b) => {
+            if (this.state.order === "ascend") {
+                // account for missing values
+                if (a[heading] === undefined) {
+                    return 1;
+                } else if (b[heading] === undefined) {
+                    return -1;
+                }
+                // numerically
+                else if (heading === "name") {
+                    return a[heading].first.localeCompare(b[heading].first);
+                } else {
+                    return a[heading] - b[heading];
+                }
+            } else {
+                // account for missing values
+                if (a[heading] === undefined) {
+                    return 1;
+                } else if (b[heading] === undefined) {
+                    return -1;
+                }
+                // numberically
+                else if (heading === "name") {
+                    return b[heading].first.localeCompare(a[heading].first);
+                } else {
+                    return b[heading] - a[heading];
+                }
+            }
+        }
+        const sortedUsers = this.state.filteredEmployees.sort(compareFnc);
+        this.setState({ filteredEmployees: sortedUsers });
+    }
 
     handleSearchChange = event => {
-        const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
-
-    const result = words.filter(element => element.length > 6);
-
-    const result2 = [];
-    for (let i = 0; i < words.length; i++) {
-        const element = words[i];
-        if (element.length > 6) {
-            result2.push(element);
-        }
+        console.log(event.target.value);
+        const filter = event.target.value;
+        const filteredList = this.state.employees.filter(item => {
+            // merge data together, then see if user input is anywhere inside
+            let values = Object.values(item)
+                .join("")
+                .toLocaleLowerCase();
+            return values.indexOf(filter.toLowerCase()) !== -1;
+        });
+        this.setState({ filteredEmployees: filteredList });
     }
-    
-    console.log(result);
-        // From this.state.employees and event.target.value, generate filteredEmployees
-        // Save it with setState into this.state.filteredEmployees
-        //console.log(event.target.value); "d"
-        console.log(this.state.employees);
-        
-        let filteredEmployees = this.state.employees.filter((element) => element.name.first.startsWith(event.target.value.toUpperCase()));
-        // let filteredEmployees2 = filteredEmployees.toLowerCase();
-        this.setState({ search: event.target.value, filteredEmployees: filteredEmployees });
+    componentDidMount() {
+        API.search().then(res => {
+            this.setState({
+                employees: res.data.results,
+                filteredEmployees: res.data.results
+            })
+        })
+            .catch(err => console.log(err));
     }
-    // handleSearchChange = event => {
-    //     const {name, value} = event.target;
-    //     this.setState({[name]: value});
-    // }
-
-    handleSort = event => {
-         
-        const {name, value} = event.target;
-        this.setState({[name]: value});
-    }
-    
-    
-    // handleSort = event => {
-    //     const employees = this.state.employees.filter(name => !name.name);
-    //     this.setState({ employees });
-    // };
-    
-    // handleSort = function (a, b){ 
-    
-    //     const sorting = this.state.employees.filter(employee => a.employee.name.toLowerCase().localeCompare(b.employee.name.toLowerCase())
-    // }
-        
-        // this.setState({
-        //     employees: results.data.results,
-        //     filteredEmployees: results.data.results
-        // });
-    
-        // handleSubmit(event) => {
-
-        // }
 
     render() {
         return (
@@ -85,15 +92,28 @@ export default class DataArea extends Component {
                 <Nav handleSearchChange={this.handleSearchChange} />
                 <div className="data-area">
                     <DataTable
+                        headings={this.headings}
                         employees={this.state.filteredEmployees}
                         handleSort={this.handleSort}
                     />
                 </div>
             </>
         );
-
     }
 }
+
+// handleSearchChange = event => {
+
+// From this.state.employees and event.target.value, generate filteredEmployees
+// Save it with setState into this.state.filteredEmployees
+
+//     console.log(this.state.employees);
+
+//     let filteredEmployees = this.state.employees.filter((element) => element.name.first.toUpperCase().startsWith(event.target.value.toUpperCase()));
+
+//     this.setState({ search: event.target.value, filteredEmployees: filteredEmployees });
+// }
+
 
 
 // const person = {

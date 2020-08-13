@@ -23,13 +23,17 @@ function SearchBox({ handleSearchChange }) {
     // I was also thinking I needed a handleSubmit prop; however, I am only searching
     // <form onSubmit={this.handleSubmit}>
     return (
-        <form>
-            <label>
-                <div className="col-sm-12">
-                    <input type="text" onChange={handleSearchChange} placeholder="Search Employees"></input>
-                </div>
-            </label>
-        </form>
+        <div className="searchbox">
+            <form className="form-inline">
+                <input
+                    className="form-control"
+                    type="Search"
+                    onChange={e => handleSearchChange(e)}
+                    placeholder="Search Employees"
+                    aria-label="Search"
+                />
+            </form>
+        </div>
     );
 }
 export default SearchBox;

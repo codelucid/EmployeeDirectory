@@ -1,6 +1,6 @@
 # EmployeeDirectory  
 
-![GitHub license](https://img.shields.io/badge/license-None-brightgreen)
+
 
 ## Description  
 
@@ -26,8 +26,7 @@ Contact Codelucid for details, but always pull first and commit often!  Enjoy us
 
 ## License  
 
-The license for this project:
-None  
+![GitHub license](https://img.shields.io/badge/license-None-brightgreen)
 
 ## Contributing  
 

@@ -4,20 +4,32 @@ import "../styles/DataTable.css";
 
 
 
-function DataTable({ employees, handleSort}) {
+function DataTable({ headings, employees, handleSort }) {
     return (
-        <table className="table">
-        <thead className="thead-dark">
-            <tr>
-                 <th scope="col">Image</th>
-                 <th onClick={() => handleSort(employees.toLowerCase())} scope="col">Name</th>
-                 <th scope="col">Phone</th>
-                 <th scope="col">Email</th>
-                 <th scope="col">DOB</th>
-            </tr>
-         </thead>
-        <DataBody employees={employees}/>
-        </table>
+        <div className="datatable mt-5">
+            <table id="table" className="table table-striped table-hover table-condensed">
+                <thead className="thead-dark">
+                    <tr>
+                        {headings.map(({ name, width }) => {
+                            return (
+                                <th
+                                    className="col"
+                                    key={name}
+                                    style={{ width }}
+                                    onClick={() => {
+                                        handleSort(name.toLowerCase());
+                                    }}
+                                >
+                                    {name}
+                                    <span className="pointer"></span>
+                                </th>
+                            );
+                        })}
+                    </tr>
+                </thead>
+                <DataBody employees={employees} />
+            </table>
+        </div>
     );
 }
 
